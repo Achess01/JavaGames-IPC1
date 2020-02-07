@@ -10,7 +10,7 @@ package main;
  * @author achess
  */
 public class Main {
-    public static void main(String[] args){
-        
+    public static void main(String[] args){       
+            Menu juego = new Menu(args);                 
     }
 }
