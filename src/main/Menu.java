@@ -31,7 +31,7 @@ public class Menu {
                 longitud = 0;
             }
             else{                
-                System.out.print("Bienvenido\n1.Sopa de letras\n2.Target\n3.2048\n6.Puntuaciones\n5.Salir");     
+                System.out.print("Bienvenido\n1.Sopa de letras\n2.Target\n3.2048\n4.Puntuaciones\n5.Salir");     
                 Scanner leer = new Scanner(System.in);
                 System.out.print("\n> ");
                 op = leer.nextLine().charAt(0);
@@ -47,12 +47,12 @@ public class Menu {
                     System.out.println("2048");
                     break;
                 case '4':
-                    System.out.println("Puntuaciones");
+                    Puntuaciones puntuaciones = new Puntuaciones();
                     break;
                     
             }                                                
         }
-        while(op != '4');        
+        while(op != '5');        
         
     }
     

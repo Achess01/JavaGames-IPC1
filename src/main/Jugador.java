@@ -11,14 +11,12 @@ package main;
  */
 public class Jugador {
     String nombre;
-    int punteoSopa;
-    int punteoTarget;
-    int punteo2048;
+    int punteo;
+    int posicion;
     
-    Jugador(String nombre, int punteoSopa, int punteoTarget, int punteo2048){
+    Jugador(String nombre, int posicion){
         this.nombre = nombre;
-        this.punteoSopa = punteoSopa;
-        this.punteoTarget = punteoTarget;
-        this.punteo2048 = punteo2048;
+        this.punteo = 0;
+        this.posicion = posicion;
     }
 }
