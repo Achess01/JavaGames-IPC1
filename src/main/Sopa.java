@@ -15,7 +15,7 @@ public class Sopa extends Juego{
     String palabras[] = {"SECRETO", "PROGRAMACION", "UNIVERSIDAD", "RECONOCER", "TECLADO"};
     
     Sopa(){
-        jugadorAprobado = Menu(1, Puntuaciones.cantidadSopa, Puntuaciones.jugadoresSopa, 1);
+        jugadorAprobado = Menu(Puntuaciones.cantidadSopa, Puntuaciones.jugadoresSopa, 1);
         if(jugadorAprobado){            
             Juego();
         }        
@@ -32,7 +32,7 @@ public class Sopa extends Juego{
         posiciones = escogerOrden(palabra);
         do{
             System.out.println("Juego: SOPA DE LETRAS");     
-            System.out.println("Datos jugador:" + jugadoresActivos[0].nombre + " "  + jugadoresActivos[0].punteo + " " + jugadoresActivos[0].posicion);
+            System.out.println("Datos jugador:" + jugadoresActivos[0].nombre + " "  + jugadoresActivos[0].punteo +"pts.");
             System.out.println("Intentos restantes: " + intentos  + "\n\n");
             escribirPalabra(palabra, posiciones);
             System.out.print("\nAdivine la palabra >");

@@ -23,9 +23,12 @@ public class Juego {
             }
             System.out.print("> ");
             try{                
-                    op = (int)(leer.nextInt());
-                    if(op < cantidadJugadores){
-                        jugadoresActivos[cantidadActivos] = jugadores[op - 1];
+                    op = leer.nextInt();
+                    op = op - 1;
+                    System.out.println(op);
+                    leer.nextLine();
+                    if(op <= cantidadJugadores){                                        
+                        jugadoresActivos[cantidadActivos] = jugadores[op];
                         cantidadActivos++;
                         return true;
                     }
@@ -34,8 +37,7 @@ public class Juego {
                     }
                     
                 }
-            catch(Exception x){
-                    op = 0;
+            catch(Exception x){                                        
                     return false;
             }
         }
@@ -101,9 +103,8 @@ public class Juego {
         }
     }
     
-    Boolean Menu(int jugadoresPermitidos, int cantidadJugadores, Jugador[] jugadores, int juego){
-        char op;
-        int iterador = 0;
+    Boolean Menu(int cantidadJugadores, Jugador[] jugadores, int juego){
+        char op;        
         Boolean hecho = false;        
             Boolean mostrar = false;
             Boolean nuevo = false;
@@ -120,13 +121,12 @@ public class Juego {
                     nuevo = nuevoJugador(jugadores, cantidadJugadores, juego);                    
                     hecho = true;
                     break;
-                }                
-                iterador++;
+                }                                
             }
             catch(Exception ex){
                 System.out.println("Valor invalido");                
             } 
-            if(hecho){
+            if(hecho){                                
                 if(mostrar || nuevo){
                     return true;
                 }
