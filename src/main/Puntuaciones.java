@@ -10,25 +10,27 @@ package main;
  * @author achess
  */
 public final class Puntuaciones {
-    public static Jugador jugadoresSopa[] = new Jugador[100];
+    public static Jugador jugadoresSopa[] = new Jugador[100];    
     public static Jugador jugadoresTarget[] = new Jugador[100];
     public static Jugador jugadores2048[] = new Jugador[100];
-    public static int cantidadJugadores = 0;
+    public static int cantidadSopa = 0;
+    public static int cantidadTarget = 0;
+    public static int cantidad2048 = 0;
     
     Puntuaciones(){
         System.out.println("Sopa de letras");
-        Ordenar(jugadoresSopa);
+        Ordenar(jugadoresSopa, cantidadSopa);
         System.out.println("Target");
-        Ordenar(jugadoresTarget);
+        Ordenar(jugadoresTarget, cantidadTarget);
         System.out.println("2048");
-        Ordenar(jugadores2048);
+        Ordenar(jugadores2048, cantidadTarget);
         
     }
     
-    public void Ordenar(Jugador[] jugadores){
+    void Ordenar(Jugador[] jugadores, int cantidadJugadores){
         Jugador aux;
-        for(int x = 0; x < (Puntuaciones.cantidadJugadores - 1); x++){
-            for(int y = x+1; y < Puntuaciones.cantidadJugadores; y++){
+        for(int x = 0; x < (cantidadJugadores - 1); x++){
+            for(int y = x+1; y < cantidadJugadores; y++){
                 if(jugadores[x].punteo < jugadores[y].punteo){
                     aux = jugadores[x];
                     jugadores[x] = jugadores[y];
@@ -37,7 +39,7 @@ public final class Puntuaciones {
             }
         }
         
-        for(int x = 0; x < Puntuaciones.cantidadJugadores; x++){
+        for(int x = 0; x < cantidadJugadores; x++){
             System.out.print((x+1) + "- " + jugadores[x].nombre + "\t| " + jugadores[x].punteo);
         }
         System.out.println("\n\n");

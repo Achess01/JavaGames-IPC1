@@ -34,11 +34,17 @@ public class Menu {
                 System.out.print("Bienvenido\n1.Sopa de letras\n2.Target\n3.2048\n4.Puntuaciones\n5.Salir");     
                 Scanner leer = new Scanner(System.in);
                 System.out.print("\n> ");
-                op = leer.nextLine().charAt(0);
+                try{
+                    op = leer.nextLine().charAt(0);
+                }
+                catch(Exception x){
+                    op = 'x';
+                }
+                
             }
             switch(op){
                 case '1':
-                    System.out.println("Sopa");
+                    Sopa sopa = new Sopa();
                     break;
                 case '2':
                     System.out.println("target");
