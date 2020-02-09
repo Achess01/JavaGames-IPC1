@@ -22,11 +22,17 @@ public class Juego {
                 System.out.println((x+1) + "- " + jugadores[x].nombre);
             }
             System.out.print("> ");
-            try{
-                    op = leer.nextInt();
-                    jugadoresActivos[cantidadActivos] = jugadores[op - 1];
-                    cantidadActivos++;
-                    return true;
+            try{                
+                    op = (int)(leer.nextInt());
+                    if(op < cantidadJugadores){
+                        jugadoresActivos[cantidadActivos] = jugadores[op - 1];
+                        cantidadActivos++;
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                    
                 }
             catch(Exception x){
                     op = 0;
@@ -43,13 +49,13 @@ public class Juego {
     Boolean nuevoJugador(Jugador[] jugadores, int cantidadJugadores, int juego){
         String nombre;
         System.out.println("Ingrese el nombre del jugador");    
-        System.out.print("> ");
-        leer.nextLine();
+        System.out.print("> ");        
         try{
             nombre = leer.nextLine();
-            nombre = nombre.toUpperCase();
-            if(existeJugador(nombre, cantidadJugadores, jugadores)){
-                System.out.println("Este jugador ya existe");
+            nombre = nombre.toUpperCase().trim();
+            if(existeJugador(nombre, cantidadJugadores, jugadores) || nombre.length() == 0){
+                System.out.println("Es posible que este jugador ya exista o que usted haya introducido un valor invalido");
+                leer.nextLine();
                 return false;
             }
             else{            
@@ -95,37 +101,46 @@ public class Juego {
         }
     }
     
-    void Menu(int jugadoresPermitidos, int cantidadJugadores, Jugador[] jugadores, int juego){
-        int op = 0;                
-        do{
+    Boolean Menu(int jugadoresPermitidos, int cantidadJugadores, Jugador[] jugadores, int juego){
+        char op;
+        int iterador = 0;
+        Boolean hecho = false;        
             Boolean mostrar = false;
             Boolean nuevo = false;
             System.out.println("1. Elegir jugador existente\n2. Crear nuevo jugador\n3. Salir");
             System.out.print("> ");
             try{
-                op = leer.nextInt();
+                op = leer.nextLine().charAt(0);
+                switch(op){
+                case '1': 
+                    mostrar = mostrarJugadores(jugadores, cantidadJugadores); 
+                    hecho = true;
+                    break;
+                case '2': 
+                    nuevo = nuevoJugador(jugadores, cantidadJugadores, juego);                    
+                    hecho = true;
+                    break;
+                }                
+                iterador++;
             }
             catch(Exception ex){
-                System.out.println("Valor invalido");
-                op = 0;
-            }      
-            switch(op){
-                case 1: 
-                    mostrar = mostrarJugadores(jugadores, cantidadJugadores);
-                    break;
-                case 2: 
-                    nuevo = nuevoJugador(jugadores, cantidadJugadores, juego);
-                    break;
-                case 3:
-                    op = jugadoresPermitidos;
-                    break;                 
+                System.out.println("Valor invalido");                
+            } 
+            if(hecho){
+                if(mostrar || nuevo){
+                    return true;
+                }
+                else{
+                    return false;
+                }
             }
-            if(mostrar || nuevo){
-                op++;
-            }
-                        
-        }while(op != jugadoresPermitidos);
-        
+            else{
+                return false;
+            }                            
     }
     
+    int aleatorio(int max, int min){
+        int z = (int)(Math.floor(Math.random() * (max - min +1) + min));
+        return z;
+    }
 }

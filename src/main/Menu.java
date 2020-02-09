@@ -53,7 +53,7 @@ public class Menu {
                     System.out.println("2048");
                     break;
                 case '4':
-                    Puntuaciones puntuaciones = new Puntuaciones();
+                    Puntuaciones.mostrar();
                     break;
                     
             }                                                
