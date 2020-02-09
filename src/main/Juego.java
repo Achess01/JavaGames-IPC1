@@ -14,7 +14,7 @@ public class Juego {
     int cantidadActivos = 0;
     Scanner leer = new Scanner(System.in);
         
-    void mostrarJugadores(Jugador[] jugadores, int cantidadJugadores){        
+    Boolean mostrarJugadores(Jugador[] jugadores, int cantidadJugadores){        
         if(cantidadJugadores > 0){
             int op;            
             System.out.println("Los jugadores disponibles son:\nEscoja uno dependiendo el número indicado");
@@ -26,27 +26,31 @@ public class Juego {
                     op = leer.nextInt();
                     jugadoresActivos[cantidadActivos] = jugadores[op - 1];
                     cantidadActivos++;
+                    return true;
                 }
             catch(Exception x){
                     op = 0;
+                    return false;
             }
         }
         else{
             System.out.println("No existen jugadores disponibles para este juego");
+            return false;
         }
         
     }
     
-    void nuevoJugador(Jugador[] jugadores, int cantidadJugadores, int juego){
+    Boolean nuevoJugador(Jugador[] jugadores, int cantidadJugadores, int juego){
         String nombre;
         System.out.println("Ingrese el nombre del jugador");    
         System.out.print("> ");
-        nombre = leer.nextLine();
+        leer.nextLine();
         try{
             nombre = leer.nextLine();
             nombre = nombre.toUpperCase();
             if(existeJugador(nombre, cantidadJugadores, jugadores)){
                 System.out.println("Este jugador ya existe");
+                return false;
             }
             else{            
                 Jugador obj = new Jugador(nombre, cantidadJugadores);
@@ -66,10 +70,12 @@ public class Juego {
                         Puntuaciones.cantidad2048++;
 
                 }
-            }
+                return true;
+            }            
         }
         catch(Exception ex){
             System.out.println("No se pudo crear al jugador");
+            return false;
         }
     }
     
@@ -90,8 +96,10 @@ public class Juego {
     }
     
     void Menu(int jugadoresPermitidos, int cantidadJugadores, Jugador[] jugadores, int juego){
-        int op = 0;        
+        int op = 0;                
         do{
+            Boolean mostrar = false;
+            Boolean nuevo = false;
             System.out.println("1. Elegir jugador existente\n2. Crear nuevo jugador\n3. Salir");
             System.out.print("> ");
             try{
@@ -99,19 +107,23 @@ public class Juego {
             }
             catch(Exception ex){
                 System.out.println("Valor invalido");
+                op = 0;
             }      
             switch(op){
                 case 1: 
-                    mostrarJugadores(jugadores, cantidadJugadores);
+                    mostrar = mostrarJugadores(jugadores, cantidadJugadores);
                     break;
                 case 2: 
-                    nuevoJugador(jugadores, cantidadJugadores, juego);
+                    nuevo = nuevoJugador(jugadores, cantidadJugadores, juego);
                     break;
                 case 3:
                     op = jugadoresPermitidos;
-                    break;
-                 
+                    break;                 
             }
+            if(mostrar || nuevo){
+                op++;
+            }
+                        
         }while(op != jugadoresPermitidos);
         
     }

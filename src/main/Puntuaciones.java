@@ -40,7 +40,7 @@ public final class Puntuaciones {
         }
         
         for(int x = 0; x < cantidadJugadores; x++){
-            System.out.print((x+1) + "- " + jugadores[x].nombre + "\t| " + jugadores[x].punteo);
+            System.out.println((x+1) + "- " + jugadores[x].nombre + "\t| " + jugadores[x].punteo);
         }
         System.out.println("\n\n");
     }

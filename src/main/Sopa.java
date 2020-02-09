@@ -12,6 +12,7 @@ package main;
 public class Sopa extends Juego{
     Sopa(){
         Menu(1, Puntuaciones.cantidadSopa, Puntuaciones.jugadoresSopa, 1);
+        
     }
     
 }
