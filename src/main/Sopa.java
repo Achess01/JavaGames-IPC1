@@ -60,6 +60,7 @@ public class Sopa extends Juego{
                 intentos--;
                 if(intentos == 0){
                     System.out.println("Has perdido\nPuntos ganados: 0");
+                    System.out.println("La palabra era: " + palabra);
                     leer.nextLine();
                 }                
             }
