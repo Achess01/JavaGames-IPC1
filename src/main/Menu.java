@@ -47,7 +47,7 @@ public class Menu {
                     Sopa sopa = new Sopa();
                     break;
                 case '2':
-                    System.out.println("target");
+                    Target target = new Target();
                     break;
                 case '3':
                     System.out.println("2048");

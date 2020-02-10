@@ -10,8 +10,7 @@ import java.util.Scanner;
  * @author achess
  */
 public class Sopa extends Juego{
-    Boolean jugadorAprobado;
-    Scanner leer = new Scanner(System.in);    
+    Boolean jugadorAprobado;   
     String palabras[] = {"SECRETO", "PROGRAMACION", "UNIVERSIDAD", "RECONOCER", "TECLADO"};
     
     Sopa(){

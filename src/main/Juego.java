@@ -24,8 +24,7 @@ public class Juego {
             System.out.print("> ");
             try{                
                     op = leer.nextInt();
-                    op = op - 1;
-                    System.out.println(op);
+                    op = op - 1;                    
                     leer.nextLine();
                     if(op <= cantidadJugadores){                                        
                         jugadoresActivos[cantidadActivos] = jugadores[op];
