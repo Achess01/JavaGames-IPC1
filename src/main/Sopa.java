@@ -24,8 +24,7 @@ public class Sopa extends Juego{
         String palabra;      
         String palabraIngresada;
         int posiciones[] = new int[20];
-        int intentos = 3;
-        int puntos = 0;
+        int intentos = 3;        
         int index;
         palabra = escogerPalabra();
         posiciones = escogerOrden(palabra);
@@ -37,22 +36,11 @@ public class Sopa extends Juego{
             System.out.print("\nAdivine la palabra >");
             palabraIngresada = leer.nextLine();
             palabraIngresada = palabraIngresada.toUpperCase().trim();
-            if(palabraIngresada.equals(palabra)){                
-                switch(intentos){
-                    case 3: 
-                        puntos = 15;
-                        break;
-                    case 2: 
-                        puntos = 12;
-                        break;
-                    case 1:
-                        puntos = 9;
-                        break;
-                }
+            if(palabraIngresada.equals(palabra)){                              
                 index = jugadoresActivos[0].posicion;
-                Puntuaciones.jugadoresSopa[index].punteo += puntos;                
-                System.out.println("!FELICIDADES¡\nPuntos ganados: " + puntos);
-                intentos = 0;
+                Puntuaciones.jugadoresSopa[index].punteo++;                
+                System.out.println("!FELICIDADES¡");                
+                intentos = 0; 
                 leer.nextLine();
             }
             else{

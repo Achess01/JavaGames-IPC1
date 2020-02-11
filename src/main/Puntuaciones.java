@@ -23,7 +23,7 @@ public final class Puntuaciones {
         System.out.println("Target\tPts.");
         Ordenar(jugadoresTarget, cantidadTarget);
         System.out.println("2048\tPts.");
-        Ordenar(jugadores2048, cantidadTarget);
+        Ordenar(jugadores2048, cantidad2048);
         
     }
     
