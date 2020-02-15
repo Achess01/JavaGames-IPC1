@@ -45,9 +45,11 @@ public class Menu {
             switch(op){
                 case '1':
                     Sopa sopa = new Sopa();
+                    sopa.Ejecutar();
                     break;
                 case '2':
                     Target target = new Target();
+                    target.Ejecutar();
                     break;
                 case '3':
                     System.out.println("2048");

@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package main;
-import java.util.Scanner;
 /**
  *
  * @author achess
@@ -13,22 +12,23 @@ public class Sopa extends Juego{
     Boolean jugadorAprobado;   
     String palabras[] = {"SECRETO", "PROGRAMACION", "UNIVERSIDAD", "RECONOCER", "TECLADO"};
     
-    Sopa(){
+    public void Ejecutar(){
         jugadorAprobado = Menu(Puntuaciones.cantidadSopa, Puntuaciones.jugadoresSopa, 1);
         if(jugadorAprobado){            
             Juego();
         }        
-    }
+    }    
     
     void Juego(){     
         String palabra;      
         String palabraIngresada;
-        int posiciones[] = new int[20];
+        int posiciones[];
         int intentos = 3;        
         int index;
         palabra = escogerPalabra();
         posiciones = escogerOrden(palabra);
         do{
+            marcarTurno();
             System.out.println("Juego: SOPA DE LETRAS");     
             System.out.println("Datos jugador:" + jugadoresActivos[0].nombre + " "  + jugadoresActivos[0].punteo +"pts.");
             System.out.println("Intentos restantes: " + intentos  + "\n\n");
@@ -51,6 +51,7 @@ public class Sopa extends Juego{
                     leer.nextLine();
                 }                
             }
+            marcarTurno();
         }while(intentos > 0);
         
     }
@@ -60,8 +61,7 @@ public class Sopa extends Juego{
         return palabras[numero];
     }
     
-    int[] escogerOrden(String palabra){
-        int numero;
+    int[] escogerOrden(String palabra){        
         Boolean repetido;
         int posiciones[] = new int[20];
         int indexLetra;

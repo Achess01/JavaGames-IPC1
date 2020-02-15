@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package main;
-import java.util.Scanner;
 /**
  *
  * @author achess
@@ -15,18 +14,17 @@ public class Target extends Juego{
     Boolean ganador = false;
     int turnos = -1;
     
-    Target(){
+    public void Ejecutar(){
         escogerJugadores();
         Turnos();
-    }    
+    }
     
     void Turnos(){
         do{
             if(turnos == (cantidadActivos - 1)){
                 turnos = -1;
             }
-            turnos++;
-            System.out.println(turnos + " " + cantidadActivos);
+            turnos++;            
             ganador = Juego(jugadoresActivos[turnos].nombre, turnos);                        
         }while(!ganador);
         System.out.println("Felicidades " + jugadoresActivos[turnos].nombre);
@@ -39,6 +37,7 @@ public class Target extends Juego{
         Boolean hecho;
         int puntosTurno;
         do{
+            marcarTurno();
             System.out.println("Turno jugador: "  + nombre);
             for(int x = 0; x < cantidadActivos; x++){
                 System.out.println(jugadoresActivos[x].nombre +" : " + punteoActivos[x]);
@@ -65,20 +64,20 @@ public class Target extends Juego{
                     puntosTurno = tiroBajo();
                     punteoActivos[turno] += puntosTurno;
                     System.out.println("+" + puntosTurno);                    
-                    hecho = true;
-                    hecho = true;
+                    hecho = true;                    
                     break;
                 default:
                     System.out.println("Valor no valido");
                     hecho = false;
             }            
+            marcarTurno();
         }while(!hecho);
         
-        if(punteoActivos[turno] >= 200){
-            return true;
+        if(punteoActivos[turno] < 200){
+            return false;
         }
         else{
-            return false;
+            return true;
         }
     }
     
@@ -94,33 +93,29 @@ public class Target extends Juego{
     
     int tiroControlado(){
         int resultado = aleatorio(2, 0);
-        if(resultado == 0){
-            return 10;
-        }
-        else if(resultado == 1){
-            return 20;
-        }
-        else{
-            return 30;
+        switch (resultado) {
+            case 0:
+                return 10;
+            case 1:
+                return 20;
+            default:
+                return 30;
         }
     }
     
     int tiroBajo(){
         int resultado = aleatorio(4, 0);
-        if(resultado == 0){
-            return 0;
-        }
-        else if(resultado == 1){
-            return 10;
-        }
-        else if(resultado == 2){
-            return 20;
-        }
-        else if(resultado == 3){
-            return 30;
-        }
-        else{
-            return 40;
+        switch (resultado) {
+            case 0:
+                return 0;
+            case 1:
+                return 10;
+            case 2:
+                return 20;
+            case 3:
+                return 30;
+            default:
+                return 40;
         }
         
     }

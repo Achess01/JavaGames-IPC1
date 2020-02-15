@@ -142,4 +142,11 @@ public class Juego {
         int z = (int)(Math.floor(Math.random() * (max - min +1) + min));
         return z;
     }
+    
+    void marcarTurno(){
+        for(int x = 0; x < 60; x++){
+            System.out.print("-");
+        }
+        System.out.print("\n\n");
+    }
 }
