@@ -53,7 +53,7 @@ public class Menu {
                     break;
                 case '3':
                     Juego2048 juego2048 = new Juego2048();
-                    juego2048.Juego();
+                    juego2048.Ejecutar();
                     break;
                 case '4':
                     Puntuaciones.mostrar();

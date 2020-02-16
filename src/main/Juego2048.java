@@ -11,6 +11,7 @@ package main;
  */
 public class Juego2048 extends Juego{
     Boolean jugadorAprobado; 
+    int acumulado = 0;
     Boolean finDeJuego = false;
     int campoDeJuego[][] = {{0,0,0,0},
                             {0,0,0,0},
@@ -32,39 +33,100 @@ public class Juego2048 extends Juego{
     
     void Juego(){
         String valor;
+        Jugador highScore[] = Puntuaciones.Ordenar(Puntuaciones.jugadores2048, Puntuaciones.cantidad2048);
+        Boolean hecho = false;
         System.out.println("Para mover: arriba (w), abajo (s), izquierda (a), derecha (d)");
         System.out.println("Para salir ingrese el comando salir");
         inicio();        
         campoTranspuesto = transponerMatrices(campoTranspuesto, campoDeJuego);
-        do{
+        do{            
+            marcarTurno();
+            System.out.println("Jugador: " + jugadoresActivos[0].nombre);
+            System.out.println("SCORE: " + acumulado);            
+            System.out.println("HIGH SCORE: " + highScore[0].punteo);
             dibujar();
             System.out.print("> ");
             valor = leer.nextLine().toUpperCase().trim();            
             switch(valor){
                 case "A":
-                    System.out.println("arriba");
+                    System.out.println("izquierda");
                     campoDeJuego = mover1(campoDeJuego);
-                    campoTranspuesto = transponerMatrices(campoTranspuesto, campoDeJuego);
+                    campoTranspuesto = transponerMatrices(campoTranspuesto, campoDeJuego);                    
                     break;
                 case "D":
-                    System.out.println("abajo");
+                    System.out.println("derecha");
                     campoDeJuego = mover2(campoDeJuego);
-                    campoTranspuesto = transponerMatrices(campoTranspuesto, campoDeJuego);
+                    campoTranspuesto = transponerMatrices(campoTranspuesto, campoDeJuego);                    
                     break;
                 case "W":
-                    System.out.println("izquierda");
+                    System.out.println("arriba");
                     campoTranspuesto = mover1(campoTranspuesto);
-                    campoDeJuego = transponerMatrices(campoDeJuego, campoTranspuesto);
+                    campoDeJuego = transponerMatrices(campoDeJuego, campoTranspuesto);                    
                     break;
-                case "S":
-                    System.out.println("derecha");
+                case "S":                    
+                    System.out.println("abajo");
                     campoTranspuesto = mover2(campoTranspuesto);
-                    campoDeJuego = transponerMatrices(campoDeJuego, campoTranspuesto);
+                    campoDeJuego = transponerMatrices(campoDeJuego, campoTranspuesto);                    
+                    break;
+                case "SALIR":
+                    finDeJuego = true;                    
                     break;
                 default: 
-                    System.out.println("valor no válido");
+                    System.out.println("valor no válido");                    
             }
+            ganadorPerdedor();
+            marcarTurno();
         }while(!finDeJuego);
+    }
+     
+    void ganadorPerdedor(){
+        int puntosActuales = jugadoresActivos[0].punteo;
+        int posicion = jugadoresActivos[0].posicion;
+            if(acumulado > puntosActuales){
+                Puntuaciones.jugadores2048[posicion].punteo = acumulado;
+            }
+    }
+    int[][] crearNuevoNumero(int matriz[][]){
+        int numero = aleatorio(2,1);
+        int x, y;
+        Boolean validar = false;
+        numero *= 2;
+        int contar = 0;
+        Boolean ganador = false;
+        for(int j = 0; j < f; j++){
+            for(int i = 0; i < f; i++){
+                if(matriz[j][i] == 0){
+                    contar++;
+                }
+                if(matriz[j][i] == 2048){
+                    ganador = true;
+                }                
+            }
+        }
+        
+        if(ganador){
+            System.out.println("!FELICIDADES¡");
+            ganadorPerdedor();
+            finDeJuego = true;
+            leer.nextLine();
+        }
+        else if(contar == 0){            
+            System.out.println("Has perdido\nInténtalo de nuevo");            
+            ganadorPerdedor();
+            finDeJuego = true;
+            leer.nextLine();
+        }
+        else{
+            do{
+                x = aleatorio(3,0);
+                y = aleatorio(3,0);                
+                if(matriz[x][y] == 0){
+                    matriz[x][y] = numero;
+                    validar = true;
+                }
+            }while(!validar);
+        }
+        return matriz;
     }
     
     int[][] transponerMatrices(int matriz1[][], int matriz2[][]){
@@ -72,43 +134,85 @@ public class Juego2048 extends Juego{
             for(int y = 0; y < f; y++){
                 matriz1[x][y] = matriz2[y][x];
             }
-        }
+        }        
         return matriz1;
     }
             
     int[][] mover1(int matriz[][]){
         int fila[];
+        int sumas;
         for(int x = 0; x < f; x++){
-            fila = matriz[x];
-            for(int y = 0; y < f-1; y++){                
-                for(int z = y+1; z < f; z++){
-                    if(fila[y] == 0 && fila[z] != 0){
-                        fila[y] = fila[z];
-                        fila[z] = 0;                        
-                    }
+            fila = matriz[x];                        
+            //Juntando
+            fila = juntar1(fila);
+            //Sumando
+            for(int j = 0; j < f - 1; j++){
+                if(fila[j] == fila[j+1]){
+                    sumas = fila[j] + fila[j+1];
+                    fila[j] = sumas;                    
+                    acumulado += sumas;
+                    fila[j+1] = 0;
+                    j++;
                 }
             }
+            //Juntando            
+            fila = juntar1(fila);
             matriz[x] = fila;
         }
+        matriz = crearNuevoNumero(matriz);
         return matriz;
     }
     
     int[][] mover2(int matriz[][]){
         int fila[];
+        int sumas;
         for(int x = 0; x < f; x++){
-            fila = matriz[x];
-            for(int y = 0; y < f-1; y++){                
+            fila = matriz[x];            
+            //Juntando
+            fila = juntar2(fila);
+            //Sumando
+            for(int j = f - 1; j > 0; j--){
+                if(fila[j] == fila[j-1]){
+                    sumas = fila[j] + fila[j-1];
+                    fila[j] = sumas;
+                    acumulado += sumas;
+                    fila[j-1] = 0;
+                    j--;
+                }
+            }
+            //Juntando
+            fila = juntar2(fila);
+            matriz[x] = fila;
+        }
+        matriz = crearNuevoNumero(matriz);
+        return matriz;
+    }   
+    
+    int[] juntar1(int fila[]){
+        for(int y = 0; y < f-1; y++){                
                 for(int z = y+1; z < f; z++){
-                    if(fila[y] != 0 && fila[z] == 0){
-                        fila[z] = fila[y];
-                        fila[y] = 0;                        
+                    if(fila[y] == 0 && fila[z] != 0){
+                        fila[y] = fila[z];
+                        fila[z] = 0;      
+                        break;
                     }
                 }
             }
-            matriz[x] = fila;
-        }
-        return matriz;
-    }   
+        return fila;
+    }
+    
+    int[] juntar2(int fila[]){
+         for(int y = f-1; y > 0; y--){                
+                for(int z = y-1; z >= 0; z--){
+                    if(fila[z] != 0 && fila[y] == 0){
+                        fila[y] = fila[z];
+                        fila[z] = 0;    
+                        break;
+                    }
+                }
+            }
+        return fila;
+    }
            
     void inicio(){
         int x, y;
@@ -120,7 +224,7 @@ public class Juego2048 extends Juego{
                     campoDeJuego[x][y] = 2;                
                     iterador++;
                 }
-        }while(iterador < 6);
+        }while(iterador < 2);
     }
     
     void dibujar(){
