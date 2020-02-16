@@ -52,7 +52,8 @@ public class Menu {
                     target.Ejecutar();
                     break;
                 case '3':
-                    System.out.println("2048");
+                    Juego2048 juego2048 = new Juego2048();
+                    juego2048.Juego();
                     break;
                 case '4':
                     Puntuaciones.mostrar();

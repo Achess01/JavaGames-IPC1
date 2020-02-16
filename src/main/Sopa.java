@@ -17,6 +17,9 @@ public class Sopa extends Juego{
         if(jugadorAprobado){            
             Juego();
         }        
+        else{
+            System.out.println("Error al ingresar el jugador");
+        }
     }    
     
     void Juego(){     
@@ -42,6 +45,9 @@ public class Sopa extends Juego{
                 System.out.println("!FELICIDADES¡");                
                 intentos = 0; 
                 leer.nextLine();
+            }
+            else if(palabraIngresada.equals("SALIR")){
+                intentos = 0;
             }
             else{
                 intentos--;
