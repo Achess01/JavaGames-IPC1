@@ -35,26 +35,31 @@ public class Juego2048 extends Juego{
         System.out.println("Para mover: arriba (w), abajo (s), izquierda (a), derecha (d)");
         System.out.println("Para salir ingrese el comando salir");
         inicio();        
-        transponerCampo();
+        campoTranspuesto = transponerMatrices(campoTranspuesto, campoDeJuego);
         do{
             dibujar();
-            valor = leer.nextLine().toUpperCase().trim();
+            System.out.print("> ");
+            valor = leer.nextLine().toUpperCase().trim();            
             switch(valor){
-                case "W":
-                    System.out.println("arriba");
-                    moverArriba();
-                    break;
-                case "S":
-                    System.out.println("abajo");
-                    moverAbajo();
-                    break;
                 case "A":
-                    System.out.println("izquierda");
-                    moverIzquierda();
+                    System.out.println("arriba");
+                    campoDeJuego = mover1(campoDeJuego);
+                    campoTranspuesto = transponerMatrices(campoTranspuesto, campoDeJuego);
                     break;
                 case "D":
+                    System.out.println("abajo");
+                    campoDeJuego = mover2(campoDeJuego);
+                    campoTranspuesto = transponerMatrices(campoTranspuesto, campoDeJuego);
+                    break;
+                case "W":
+                    System.out.println("izquierda");
+                    campoTranspuesto = mover1(campoTranspuesto);
+                    campoDeJuego = transponerMatrices(campoDeJuego, campoTranspuesto);
+                    break;
+                case "S":
                     System.out.println("derecha");
-                    moverDerecha();
+                    campoTranspuesto = mover2(campoTranspuesto);
+                    campoDeJuego = transponerMatrices(campoDeJuego, campoTranspuesto);
                     break;
                 default: 
                     System.out.println("valor no válido");
@@ -62,24 +67,19 @@ public class Juego2048 extends Juego{
         }while(!finDeJuego);
     }
     
-    void transponerCampo(){
+    int[][] transponerMatrices(int matriz1[][], int matriz2[][]){
         for(int x = 0; x < f; x++){
             for(int y = 0; y < f; y++){
-                campoTranspuesto[x][y] = campoDeJuego[y][x];
+                matriz1[x][y] = matriz2[y][x];
             }
         }
+        return matriz1;
     }
-    void transponerTranspuesta(){
-        for(int x = 0; x < f; x++){
-            for(int y = 0; y < f; y++){
-                campoDeJuego[x][y] = campoTranspuesto[y][x];
-            }
-        }
-    }
-    void moverIzquierda(){
+            
+    int[][] mover1(int matriz[][]){
         int fila[];
         for(int x = 0; x < f; x++){
-            fila = campoDeJuego[x];
+            fila = matriz[x];
             for(int y = 0; y < f-1; y++){                
                 for(int z = y+1; z < f; z++){
                     if(fila[y] == 0 && fila[z] != 0){
@@ -88,14 +88,15 @@ public class Juego2048 extends Juego{
                     }
                 }
             }
-            campoDeJuego[x] = fila;
+            matriz[x] = fila;
         }
-        transponerCampo();
+        return matriz;
     }
-    void moverDerecha(){
+    
+    int[][] mover2(int matriz[][]){
         int fila[];
         for(int x = 0; x < f; x++){
-            fila = campoDeJuego[x];
+            fila = matriz[x];
             for(int y = 0; y < f-1; y++){                
                 for(int z = y+1; z < f; z++){
                     if(fila[y] != 0 && fila[z] == 0){
@@ -104,43 +105,11 @@ public class Juego2048 extends Juego{
                     }
                 }
             }
-            campoDeJuego[x] = fila;
+            matriz[x] = fila;
         }
-        transponerCampo();
+        return matriz;
     }   
-    void moverArriba(){
-        int fila[];
-        for(int x = 0; x < f; x++){
-            fila = campoTranspuesto[x];
-            for(int y = 0; y < f-1; y++){                
-                for(int z = y+1; z < f; z++){
-                    if(fila[y] == 0 && fila[z] != 0){
-                        fila[y] = fila[z];
-                        fila[z] = 0;                        
-                    }
-                }
-            }
-            campoTranspuesto[x] = fila;
-        }
-        transponerTranspuesta();
-    }
-    void moverAbajo(){
-        int fila[];
-        for(int x = 0; x < f; x++){
-            fila = campoTranspuesto[x];
-            for(int y = 0; y < f-1; y++){                
-                for(int z = y+1; z < f; z++){
-                    if(fila[z] == 0 && fila[y] != 0){
-                        fila[z] = fila[y];
-                        fila[y] = 0;                        
-                    }
-                }
-            }
-            campoTranspuesto[x] = fila;
-        }
-        transponerTranspuesta();
-    }
-    
+           
     void inicio(){
         int x, y;
         int iterador = 0;
