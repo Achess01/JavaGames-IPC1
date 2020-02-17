@@ -122,16 +122,16 @@ public class Target extends Juego{
     
     void escogerJugadores(){
         int jugadores;
-        System.out.print("Ingrese la cantidad de jugadores (2,4)\n> ");
+        System.out.print("Ingrese la cantidad de jugadores (1,4)\n> ");
         try{
             jugadores = leer.nextInt();            
             leer.nextLine();
-            if(jugadores < 2 || jugadores > 4){
-                jugadores = 2;
+            if(jugadores < 1 || jugadores > 4){
+                jugadores = 1;
             }
         }
         catch (Exception ex){
-            jugadores = 2;
+            jugadores = 1;
         }
         
         for(int x = 0; x < jugadores; x++){            
