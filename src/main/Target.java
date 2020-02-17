@@ -26,10 +26,7 @@ public class Target extends Juego{
             }
             turnos++;            
             ganador = Juego(jugadoresActivos[turnos].nombre, turnos);                        
-        }while(!ganador);
-        System.out.println("Felicidades " + jugadoresActivos[turnos].nombre);
-        int index = jugadoresActivos[turnos].posicion;
-        Puntuaciones.jugadoresTarget[index].punteo++;
+        }while(!ganador);        
     }
     
     Boolean Juego(String nombre, int turno){
@@ -77,6 +74,9 @@ public class Target extends Juego{
             return false;
         }
         else{
+            System.out.println("Felicidades " + jugadoresActivos[turnos].nombre);
+            int index = jugadoresActivos[turnos].posicion;
+            Puntuaciones.jugadoresTarget[index].punteo++;
             return true;
         }
     }
