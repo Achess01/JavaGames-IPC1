@@ -9,6 +9,11 @@ package main;
  *
  * @author achess
  */
+/*Esta clase se encarga de  guardar los resultados y mostrarlos. 
+  Tiene arreglos de tipo static para que los resultados puedan ser modificados cuando   
+  los cambios ocurran en los juegos.
+
+*/
 public final class Puntuaciones {
     public static Jugador jugadoresSopa[] = new Jugador[100];    
     public static Jugador jugadoresTarget[] = new Jugador[100];

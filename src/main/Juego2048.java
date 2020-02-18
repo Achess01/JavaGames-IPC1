@@ -9,6 +9,13 @@ package main;
  *
  * @author achess
  */
+/*
+    Clase juego 2048:
+    El campo de juego consiste en dos matrices. Una matriz que sirve para mostrar el campo y además 
+    para los movimientos de izquierda a derecha. La otra matriz es una matrzi transpuesta de la matriz
+    principal que se utiliza para los movimientos de arriba y abajo.
+    Se usan dos matrices para poder reciclar los algoritmos del movimiento de izquierda y deracha.
+*/
 public class Juego2048 extends Juego{
     Boolean jugadorAprobado; 
     int acumulado = 0;
@@ -137,7 +144,12 @@ public class Juego2048 extends Juego{
         }        
         return matriz1;
     }
-            
+    /*Para los movimientos:
+    Lo primero que hace es juntar todas las casillas al lado indicado por el usuario. Esto para
+    facilitar la sumatoria de las casillas. Luego de hacer la sumatoria se juntan de nuevo las casillas.
+    
+    
+    */
     int[][] mover1(int matriz[][]){
         int fila[];
         int sumas;
@@ -163,7 +175,7 @@ public class Juego2048 extends Juego{
         return matriz;
     }
     
-    int[][] mover2(int matriz[][]){
+    int[][] mover2(int matriz[][]){        
         int fila[];
         int sumas;
         for(int x = 0; x < f; x++){
@@ -189,6 +201,10 @@ public class Juego2048 extends Juego{
     }   
     
     int[] juntar1(int fila[]){
+        /*
+        Se tomó el metodo de ordenamiento burbuja y se modificó para hacer que corra los espacios
+        y no para ordenar. 
+        */
         for(int y = 0; y < f-1; y++){                
                 for(int z = y+1; z < f; z++){
                     if(fila[y] == 0 && fila[z] != 0){
@@ -202,6 +218,10 @@ public class Juego2048 extends Juego{
     }
     
     int[] juntar2(int fila[]){
+        /*
+        Se tomó el metodo de ordenamiento burbuja y se modificó para hacer que corra los espacios
+        y no para ordenar. 
+        */
          for(int y = f-1; y > 0; y--){                
                 for(int z = y-1; z >= 0; z--){
                     if(fila[z] != 0 && fila[y] == 0){
@@ -228,6 +248,12 @@ public class Juego2048 extends Juego{
     }
     
     void dibujar(){
+        /*
+        Este método se encarga de dibujar la matriz "campoDeJuego".
+        Lo primero que hace es establecer los espacios dependiendo del tamaño del número que se encuentra 
+        en la casilla que se está evaluando. Se hace así para darle simetría al campo de juego.
+        Luego escoge los colores previemente declarados en la clase "Colores". 
+        */
         int espacios;
         int casilla;        
         String colores;
@@ -282,6 +308,11 @@ public class Juego2048 extends Juego{
     }
     
     String definirColores(int casilla){
+        /*
+            Utilizando el operador % (mod) y descomponiendo el número de la casilla que se está evaluando
+            se logra determinar el color de cada número. Los colores están guardados en un arreglo en la 
+            clase "Colores".
+        */
         int index;
         int contador = 0;
         do{

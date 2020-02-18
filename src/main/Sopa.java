@@ -8,6 +8,19 @@ package main;
  *
  * @author achess
  */
+/*
+Esta es la clase del juego de Sopa de letras:
+    Se ejecuta en el siguiente orden:
+                                    1. Validar jugador
+                                    2. Escoger aleatoriamente algunas de las palabras guardadas en  
+                                        el arreglo "palabras"
+                                    3. Generar aleatoriamente el orden en el que se escribe la palabra
+                                       previamente escogida. Usando un algoritmo el cual se encarga de 
+                                       generar números aleatorios sin repetir.
+                                    4. El juego inicia y por cada palabra ingresada hace una comparación.
+
+
+*/
 public class Sopa extends Juego{
     Boolean jugadorAprobado;   
     String palabras[] = {"SECRETO", "PROGRAMACION", "UNIVERSIDAD", "RECONOCER", "TECLADO"};
@@ -67,7 +80,7 @@ public class Sopa extends Juego{
         return palabras[numero];
     }
     
-    int[] escogerOrden(String palabra){        
+    int[] escogerOrden(String palabra){                
         Boolean repetido;
         int posiciones[] = new int[20];
         int indexLetra;
@@ -83,6 +96,7 @@ public class Sopa extends Juego{
             if(repetido){
                 x--;
                 continue;
+                //El for se repite hasta que el número creado no esté ya en el arreglo;
             }
             posiciones[x] = indexLetra;
         }               

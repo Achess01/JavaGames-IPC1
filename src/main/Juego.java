@@ -9,9 +9,17 @@ import java.util.Scanner;
  *
  * @author achess
  */
+
+/*
+* Esta clase es una base de los demás juegos.
+* En esta clase se encuentra el menú para pedir el jugador antes de iniciar cada juego
+* 
+*
+*
+*/
 public class Juego {
-    Jugador jugadoresActivos[] = new Jugador[4];
-    int cantidadActivos = 0;
+    Jugador jugadoresActivos[] = new Jugador[4]; //Guarda los jugadores que están jugando    
+    int cantidadActivos = 0;  // Cantidad de jugadores 
     Scanner leer = new Scanner(System.in);
         
     Boolean mostrarJugadores(Jugador[] jugadores, int cantidadJugadores){        
@@ -48,6 +56,9 @@ public class Juego {
     }
     
     Boolean nuevoJugador(Jugador[] jugadores, int cantidadJugadores, int juego){
+        /*Este método crea nuevos jugadores. Dependiendo del juego en que sea llamado, se guradarán 
+        los jugadores en los arreglos que correspondan.
+        */
         String nombre;
         System.out.println("Ingrese el nombre del jugador");    
         System.out.print("> ");        
@@ -87,6 +98,8 @@ public class Juego {
     }
     
     Boolean existeJugador(String nombre, int cantidadJugadores, Jugador[] jugadores){
+        //Este método comprueba que el jugador que se esté creando no sea repetido
+        
         int bandera = 0;
         for(int x = 0; x < cantidadJugadores; x++){
             if(nombre.equals(jugadores[x].nombre)){

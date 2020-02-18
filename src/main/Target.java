@@ -8,6 +8,14 @@ package main;
  *
  * @author achess
  */
+
+/*
+    Clase del juego Target:
+    El juego itera entre turnos usando un do{}while. Cuando el jugador escoge un tiro,
+    dependiendo del tiro se van a generar N cantidad de números aleatorios para escoger
+    el resultado del tiro.
+    
+*/
 public class Target extends Juego{       
     Boolean jugadoresAprobados[] = new Boolean[4];        
     int punteoActivos[] = {0,0,0,0};
